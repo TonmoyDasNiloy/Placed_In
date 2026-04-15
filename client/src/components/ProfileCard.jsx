@@ -92,7 +92,7 @@ const ProfileCard = ({ user }) => {
             <p className="text-xs text-ascent-2">Views</p>
           </div>
           <div>
-            <p className="text-lg font-bold text-blue text-sm pt-1">
+            <p className="text-lg font-bold text-blue pt-1">
               {user?.verified ? "✓ Verified" : "Unverified"}
             </p>
             <p className="text-xs text-ascent-2">
