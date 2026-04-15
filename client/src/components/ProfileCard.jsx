@@ -1,11 +1,6 @@
 import moment from "moment";
-import React from "react";
-import {
-  BsBriefcase,
-  BsFacebook,
-  BsInstagram,
-  BsPersonFillAdd,
-} from "react-icons/bs";
+import React, { useEffect } from "react";
+import { BsBriefcase, BsFacebook, BsInstagram, BsPersonFillAdd } from "react-icons/bs";
 import { FaLinkedin } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
 import { CiLocationOn } from "react-icons/ci";
@@ -14,11 +9,11 @@ import { NoProfile } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateProfile } from "../redux/userSlice";
 import { sendFriendRequest, handleUnfriend, handleProfileView } from "../utils";
-import {useEffect} from "react";
 
 const ProfileCard = ({ user }) => {
-  const { user: data, edit } = useSelector((state) => state.user);
+  const { user: data } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (user?._id !== data?._id) {
       handleProfileView(user?._id);
@@ -26,107 +21,101 @@ const ProfileCard = ({ user }) => {
   }, [user?._id, data?._id]);
 
   return (
-    <div>
-      <div className="w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4">
-        <div className="w-full flex items-center justify-between border-b pb-5 border-[#66666645]">
-          <Link className="flex gap-2" to={"/profile/" + user?._id}>
+    <div className="w-full glass rounded-2xl overflow-hidden">
+      {/* Banner */}
+      <div className="h-16 bg-gradient-to-r from-[#7c3aed] to-[#a855f7]" />
+
+      <div className="px-5 pb-5">
+        {/* Avatar + Edit */}
+        <div className="flex items-end justify-between -mt-8 mb-3">
+          <Link to={"/profile/" + user?._id}>
             <img
               src={user?.profileUrl ?? NoProfile}
               alt={user?.email}
-              className="w-14 h-14 object-cover rounded-full"
+              className="w-16 h-16 object-cover rounded-full border-4 border-white/30 shadow-lg"
             />
-            <div className="flex flex-col justify-center">
-              <p className="text-lg font-medium text-ascent-1">
-                {user?.firstName} {user?.lastName}
-              </p>
-              <span className="text-ascent-2">
-                {user?.profession ?? "No Profession"}
-              </span>
-            </div>
           </Link>
           <div>
             {user?._id === data?._id ? (
-              <LiaEditSolid
-                size={22}
-                className="text-blue cursor-pointer"
-                onClick={() => dispatch(UpdateProfile(true))}
-              />
-            ) : data?.friends?.some(
-                (friend) => friend._id?.toString() === user?._id.toString()
-              ) ? (
               <button
-                className="bg-red-500 text-sm text-white p-1 rounded"
+                onClick={() => dispatch(UpdateProfile(true))}
+                className="flex items-center gap-1 text-xs bg-blue text-white px-3 py-1.5 rounded-full hover:opacity-90 transition"
+              >
+                <LiaEditSolid size={14} /> Edit
+              </button>
+            ) : data?.friends?.some((f) => f._id?.toString() === user?._id?.toString()) ? (
+              <button
+                className="text-xs bg-red-500/80 text-white px-3 py-1.5 rounded-full hover:opacity-90 transition"
                 onClick={() => handleUnfriend(user?._id, data?._id)}
               >
                 Unfriend
               </button>
             ) : (
               <button
-                className="bg-[#0444a430] text-sm text-white p-1 rounded"
-                onClick={() => {
-                  sendFriendRequest(data.token, user._id);
-                }}
+                className="flex items-center gap-1 text-xs bg-white/20 border border-white/25 text-ascent-1 px-3 py-1.5 rounded-full hover:bg-blue hover:text-white transition"
+                onClick={() => sendFriendRequest(data.token, user._id)}
               >
-                <BsPersonFillAdd size={20} className="text-[#0f52b6]" />
+                <BsPersonFillAdd size={14} /> Connect
               </button>
             )}
           </div>
         </div>
 
-        <div className="w-full flex flex-col gap-2 py-4 border-b border-[#66666645]">
-          <div className="flex gap-2 items-center text-ascent-2">
-            <CiLocationOn className="text-xl text-ascent-1" />
+        {/* Name & Profession */}
+        <Link to={"/profile/" + user?._id}>
+          <p className="text-lg font-bold text-ascent-1 hover:text-blue transition">
+            {user?.firstName} {user?.lastName}
+          </p>
+        </Link>
+        <p className="text-sm text-ascent-2">{user?.profession ?? "No Profession"}</p>
+
+        {/* Location & Job */}
+        <div className="mt-3 flex flex-col gap-1.5">
+          <div className="flex gap-2 items-center text-ascent-2 text-sm">
+            <CiLocationOn className="text-blue" />
             <span>{user?.location ?? "Add Location"}</span>
           </div>
-          <div className="flex gap-2 items-center text-ascent-2">
-            <BsBriefcase className=" text-lg text-ascent-1" />
+          <div className="flex gap-2 items-center text-ascent-2 text-sm">
+            <BsBriefcase className="text-blue" />
             <span>{user?.profession ?? "Add Profession"}</span>
           </div>
         </div>
 
-        <div className="w-full flex flex-col gap-2 py-4 border-b border-[#66666645]">
-          <p className="text-xl text-ascent-1 font-semibold">
-            {user?.friends?.length} Friends
-          </p>
-
-          <div className="flex items-center justify-between">
-            <span className="text-ascent-2">Total views</span>
-            <span className="text-ascent-1 text-lg">{user?.views}</span>
+        {/* Stats */}
+        <div className="mt-4 pt-3 border-t border-white/20 grid grid-cols-3 text-center gap-2">
+          <div>
+            <p className="text-lg font-bold text-ascent-1">{user?.friends?.length ?? 0}</p>
+            <p className="text-xs text-ascent-2">Friends</p>
           </div>
-
-          <span className="text-base text-blue">
-            {user?.verified ? "Verified Account" : "Not Verified"}
-          </span>
-
-          <div className="flex items-center justify-between">
-            <span className="text-ascent-2">Joined</span>
-            <span className="text-ascent-1 text-base">
+          <div>
+            <p className="text-lg font-bold text-ascent-1">{user?.views ?? 0}</p>
+            <p className="text-xs text-ascent-2">Views</p>
+          </div>
+          <div>
+            <p className="text-lg font-bold text-blue text-sm pt-1">
+              {user?.verified ? "✓ Verified" : "Unverified"}
+            </p>
+            <p className="text-xs text-ascent-2">
               {moment(user?.createdAt).fromNow()}
-            </span>
+            </p>
           </div>
         </div>
 
-        <div className="w-full flex flex-col gap-4 py-4 pb-6">
-          <p className="text-ascent-1 text-lg font-semibold">Social Profiles</p>
-
-          <div className="flex flex-col gap-4">
-            <a href={user?.instagram} target="_blank" rel="noopener noreferrer">
-              <div className="flex gap-2 items-center text-ascent-2 cursor-pointer hover:opacity-80">
-                <BsInstagram className="text-xl text-ascent-1" />
-                <span>Instagram</span>
-              </div>
+        {/* Social Links */}
+        <div className="mt-4 pt-3 border-t border-white/20">
+          <p className="text-sm font-semibold text-ascent-1 mb-3">Social Profiles</p>
+          <div className="flex gap-4">
+            <a href={user?.instagram} target="_blank" rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white/20 hover:bg-pink-500/30 transition text-ascent-1">
+              <BsInstagram size={16} />
             </a>
-            <a href={user?.facebook} target="_blank" rel="noopener noreferrer">
-              <div className="flex gap-2 items-center text-ascent-2 cursor-pointer hover:opacity-80">
-                <BsFacebook className="text-xl text-ascent-1" />
-                <span>Facebook</span>
-              </div>
+            <a href={user?.facebook} target="_blank" rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white/20 hover:bg-blue/30 transition text-ascent-1">
+              <BsFacebook size={16} />
             </a>
-            <a href={user?.linkedIn} target="_blank" rel="noopener noreferrer">
-              <div className="flex gap-2 items-center text-ascent-2 cursor-pointer hover:opacity-80">
-                <FaLinkedin className="text-xl text-ascent-1" />
-                <span>LinkedIn</span>
-              </div>
+            <a href={user?.linkedIn} target="_blank" rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white/20 hover:bg-blue/30 transition text-ascent-1">
+              <FaLinkedin size={16} />
             </a>
           </div>
         </div>

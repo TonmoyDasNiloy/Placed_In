@@ -1,6 +1,6 @@
-import { TbSocial } from "react-icons/tb";
 import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdOutlineGroups } from "react-icons/md";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import TextInput from "./TextInput";
@@ -12,72 +12,66 @@ import { useNavigate } from "react-router-dom";
 
 const TopBar = () => {
   const navigate = useNavigate();
-
   const { theme } = useSelector((state) => state.theme);
-  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const {
-    register,
-    handleSubmit,
-  } = useForm({
-    mode: "onChange",
-  });
+  const { register, handleSubmit } = useForm({ mode: "onChange" });
 
   const handleTheme = () => {
-    const themeValue = theme === "light" ? "dark" : "light";
-    dispatch(SetTheme(themeValue));
+    dispatch(SetTheme(theme === "light" ? "dark" : "light"));
   };
 
   const handleSearch = (data) => {
-    if (data.search.trim() === "") {
-      return;
-    }
+    if (data.search.trim() === "") return;
     navigate(`/search?q=${encodeURIComponent(data.search)}`);
   };
 
-
   return (
-    <div className="topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary">
+    <div className="topbar w-full flex items-center justify-between py-3 md:py-4 px-6 bg-white/20 border-b border-white/20 shadow-sm">
+      {/* LOGO */}
       <Link to="/" className="flex gap-2 items-center">
-        <div className="p-1 md:p-2 bg-[#065ad8] rounded text-white">
-          <TbSocial />
+        <div className="p-2 bg-blue rounded-xl text-white shadow-lg">
+          <MdOutlineGroups size={22} />
         </div>
-        <span className="text-xl md:text-2xl text-[#065ad8] font-semibold">
-          BRACU-Connect
+        <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent hidden sm:block">
+          BRACU Connect
         </span>
       </Link>
+
+      {/* SEARCH */}
       <form
-        className="hidden md:flex items-center justify-center"
+        className="hidden md:flex items-center"
         onSubmit={handleSubmit(handleSearch)}
       >
         <TextInput
-          placeholder="Search..."
-          styles="w-[18rem] lg:w-[38rem]  rounded-l-full py-3 "
+          placeholder="Search people, posts..."
+          styles="w-[16rem] lg:w-[28rem] rounded-l-full py-2.5"
           register={register("search")}
         />
         <CustomButton
           title="Search"
           type="submit"
-          containerStyles="bg-[#0444a4] text-white px-6 py-2.5 mt-2 rounded-r-full"
+          containerStyles="bg-blue text-white px-5 py-2.5 mt-2 rounded-r-full hover:opacity-90"
         />
       </form>
-      {/* ICONS */}
-      <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
-        <button onClick={() => handleTheme()}>
-          {theme === "light" ? <BsMoon /> : <BsSunFill />}
-        </button>
-        <div className="hidden lg:flex">
-          <IoMdNotificationsOutline />
-        </div>
 
-        <div>
-          <CustomButton
-            onClick={() => dispatch(Logout())}
-            title="Log Out"
-            containerStyles="text-sm text-ascent-1 px-4 md:px-6 py-1 md:py-2 border border-[#666] rounded-full"
-          />
-        </div>
+      {/* RIGHT */}
+      <div className="flex gap-3 items-center text-ascent-1 text-lg md:text-xl">
+        <button
+          onClick={handleTheme}
+          className="p-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/20 transition"
+        >
+          {theme === "light" ? <BsMoon size={18} /> : <BsSunFill size={18} className="text-yellow-300" />}
+        </button>
+
+        <button className="hidden lg:flex p-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/20 transition">
+          <IoMdNotificationsOutline size={18} />
+        </button>
+
+        <CustomButton
+          onClick={() => dispatch(Logout())}
+          title="Log Out"
+          containerStyles="text-sm text-ascent-1 px-4 py-1.5 bg-white/20 border border-white/25 rounded-full hover:bg-blue hover:text-white hover:border-blue transition"
+        />
       </div>
     </div>
   );
