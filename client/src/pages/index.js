@@ -5,3 +5,4 @@ import Profile from "./Profile";
 import ResetPassword from "./ResetPassword";
 import SearchHome from "./SearchHome";
 export { Login, Home, Register, Profile, ResetPassword, SearchHome };
+export { default as Messages } from "./Messages";

@@ -82,6 +82,8 @@
     --color-ascent2: 109 107 140;
     --color-blue: 109 40 217;
     --color-white: 255 255 255;
+    --logo-gradient-from: #7c3aed;
+    --logo-gradient-to: #a855f7;
   }
 
   [data-theme="dark"] {
@@ -92,6 +94,8 @@
     --color-ascent2: 167 163 200;
     --color-blue: 139 92 246;
     --color-white: 255 255 255;
+    --logo-gradient-from: #a78bfa;
+    --logo-gradient-to: #c084fc;
   }
 }
 
@@ -110,4 +114,12 @@ body {
   background-image: radial-gradient(ellipse at 20% 50%, rgba(109, 40, 217, 0.25) 0%, transparent 60%),
                     radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 60%),
                     radial-gradient(ellipse at 50% 80%, rgba(76, 29, 149, 0.2) 0%, transparent 60%);
+}
+
+.logo-text {
+  background-image: linear-gradient(to right, var(--logo-gradient-from), var(--logo-gradient-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }

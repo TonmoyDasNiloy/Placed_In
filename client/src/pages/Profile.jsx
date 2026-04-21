@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  EditProfile,
   FriendsCard,
   Loading,
   PostCard,
@@ -13,7 +14,7 @@ import { useParams } from "react-router-dom";
 const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user, edit } = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState(null);
   const { posts } = useSelector((state) => state.posts);
   const [loading, setLoading] = useState(false);
@@ -54,7 +55,7 @@ const Profile = () => {
         <div className="w-full flex gap-3 lg:gap-5 pt-5 h-full">
           {/* LEFT */}
           <div className="hidden w-1/3 lg:w-1/4 md:flex flex-col gap-4 overflow-y-auto md:pl-4 lg:pl-0">
-            <ProfileCard user={userInfo} />
+            <ProfileCard user={userInfo} onUnfriend={getUser} />
             <div className="block lg:hidden">
               <FriendsCard friends={userInfo?.friends} />
             </div>
@@ -63,7 +64,7 @@ const Profile = () => {
           {/* CENTER */}
           <div className="flex-1 h-full flex flex-col gap-4 overflow-y-auto pl-2">
             <div className="block md:hidden">
-              <ProfileCard user={userInfo} />
+              <ProfileCard user={userInfo} onUnfriend={getUser} />
             </div>
             {loading ? <Loading /> : posts?.length > 0 ? (
               posts?.map((post) => (
@@ -82,6 +83,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      {edit && <EditProfile />}
     </>
   );
 };

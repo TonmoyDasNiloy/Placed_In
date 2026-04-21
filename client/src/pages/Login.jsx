@@ -44,7 +44,7 @@ const Login = () => {
               <MdOutlineGroups size={22} />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent">
-              BRACU Connect
+              PlacedIn
             </span>
           </div>
 
@@ -113,8 +113,8 @@ const Login = () => {
             </div>
 
             <div>
-              <p className="text-white font-semibold text-lg">BRACU Connect</p>
-              <p className="text-white/70 text-sm mt-1">Your campus social network</p>
+              <p className="text-white font-semibold text-lg">PlacedIn</p>
+              <p className="text-white/70 text-sm mt-1">A professional social network</p>
             </div>
           </div>
         </div>

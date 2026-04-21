@@ -51,7 +51,7 @@ router.get("/resetpassword", (req, res) => {
   res.sendFile(path.join(__dirname, "./views/build", "index.html"));
 });
 
-router.post("/unfriend", unFriend);
+router.post("/unfriend", userAuth, unFriend);
 
 router.get("/search", searchUserPosts);
 

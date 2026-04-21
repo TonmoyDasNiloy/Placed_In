@@ -47,7 +47,7 @@ export const sendVerificationEmail = async (user, res) => {
     </p>
     <div style="margin-top: 20px;">
         <h5>Best Regards</h5>
-        <h5>BRACU-Connect Team</h5>
+        <h5>PlacedIn Team</h5>
     </div>
 </div>`,
   };

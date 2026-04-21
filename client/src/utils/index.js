@@ -128,15 +128,17 @@ export const sendFriendRequest = async (token, id) => {
   }
 };
 
-export const handleUnfriend = async (friendId, userId) => {
+export const handleUnfriend = async (token, friendId, userId) => {
   try {
     const res = await apiRequest({
       url: "/users/unfriend",
+      token: token,
       method: "POST",
       data: { userId, friendId },
     });
 
-    toast.success("Successfully unfriended user"); 
+    toast.success("Successfully unfriended user");
+    return res;
   } catch (err) {
     console.error(err);
     toast.error("Error unfriending user");

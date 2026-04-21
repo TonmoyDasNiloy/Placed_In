@@ -32,8 +32,16 @@ const TopBar = () => {
         <div className="p-2 bg-blue rounded-xl text-white shadow-lg">
           <MdOutlineGroups size={22} />
         </div>
-        <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent hidden sm:block">
-          BRACU Connect
+        <span
+          className="text-xl md:text-2xl font-bold hidden sm:block"
+          style={{
+            backgroundImage: "linear-gradient(to right, var(--logo-gradient-from), var(--logo-gradient-to))",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          PlacedIn
         </span>
       </Link>
 

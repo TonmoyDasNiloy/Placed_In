@@ -40,12 +40,12 @@ const Register = () => {
               <MdOutlineGroups size={22} />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent">
-              BRACU Connect
+              PlacedIn
             </span>
           </div>
 
           <h2 className="text-2xl font-bold text-ascent-1 mb-1">Create account</h2>
-          <p className="text-sm text-ascent-2 mb-5">Join your campus network today</p>
+          <p className="text-sm text-ascent-2 mb-5">Join your professional network today</p>
 
           <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex gap-3">
@@ -106,7 +106,7 @@ const Register = () => {
               {[
                 { icon: <ImConnection />, label: "Build your network" },
                 { icon: <BsShare />, label: "Share experiences" },
-                { icon: <AiOutlineInteraction />, label: "Engage with campus" },
+                { icon: <AiOutlineInteraction />, label: "Engage with Professionals" },
               ].map(({ icon, label }) => (
                 <div key={label} className="flex items-center gap-3 bg-white/15 backdrop-blur px-5 py-2.5 rounded-full border border-white/20 text-white text-sm">
                   {icon} <span>{label}</span>
@@ -114,8 +114,8 @@ const Register = () => {
               ))}
             </div>
             <div>
-              <p className="text-white font-semibold text-lg">Join BRACU Connect</p>
-              <p className="text-white/70 text-sm mt-1">Your campus. Your network.</p>
+              <p className="text-white font-semibold text-lg">Join PlacedIn</p>
+              <p className="text-white/70 text-sm mt-1">Your Network is Your NetWorth.</p>
             </div>
           </div>
         </div>

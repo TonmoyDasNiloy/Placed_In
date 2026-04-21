@@ -1,12 +1,5 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from "react-router-dom";
-import {
-  Home,
-  Login,
-  Profile,
-  Register,
-  ResetPassword,
-  SearchHome,
-} from "./pages";
+import { Home, Login, Profile, Register, ResetPassword, SearchHome, Messages } from "./pages";
 import { useSelector } from "react-redux";
 
 function Layout() {
@@ -30,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search/" element={<SearchHome />} />
           <Route path="/profile/:id?" element={<Profile />} />
+          <Route path="/messages" element={<Messages />} />
         </Route>
 
         <Route path="/register" element={<Register />} />
