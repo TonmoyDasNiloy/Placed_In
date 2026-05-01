@@ -33,13 +33,22 @@ const Register = () => {
   return (
     <div className="w-full min-h-screen bg-bgColor flex items-center justify-center p-6">
       <div className="w-full md:w-2/3 lg:h-[90vh] flex flex-row-reverse rounded-2xl overflow-hidden shadow-2xl glass">
+
         {/* RIGHT — Form */}
         <div className="w-full lg:w-1/2 h-full px-8 lg:p-10 flex flex-col justify-center overflow-y-auto">
           <div className="flex gap-2 items-center mb-6">
             <div className="p-2 bg-blue rounded-xl text-white shadow-lg">
               <MdOutlineGroups size={22} />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent">
+            <span
+              className="text-2xl font-bold"
+              style={{
+                backgroundImage: "linear-gradient(to right, var(--logo-gradient-from), var(--logo-gradient-to))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
               PlacedIn
             </span>
           </div>
@@ -82,9 +91,12 @@ const Register = () => {
             )}
 
             {isSubmitting ? <Loading /> : (
-              <CustomButton type="submit"
-                containerStyles="w-full justify-center rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#a855f7] py-3 text-sm font-semibold text-white hover:opacity-90 transition shadow-lg mt-3"
-                title="Create Account" />
+              <CustomButton
+                type="submit"
+                containerStyles="w-full justify-center rounded-xl py-3 text-sm font-semibold text-white hover:opacity-90 transition shadow-lg mt-3"
+                style={{ background: "linear-gradient(to right, #A35139, #FFB162)" }}
+                title="Create Account"
+              />
             )}
           </form>
 
@@ -95,9 +107,12 @@ const Register = () => {
         </div>
 
         {/* LEFT — Branding */}
-        <div className="hidden lg:flex w-1/2 h-full flex-col items-center justify-center bg-gradient-to-br from-[#7c3aed] to-[#4c1d95] relative overflow-hidden">
+        <div className="hidden lg:flex w-1/2 h-full flex-col items-center justify-center relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, #1B2632 0%, #A35139 60%, #FFB162 100%)" }}
+        >
           <div className="absolute inset-0 opacity-20"
-            style={{ backgroundImage: "radial-gradient(circle at 70% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 70% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)" }}
+          />
           <div className="relative z-10 flex flex-col items-center gap-8 px-10 text-center">
             <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border border-white/30 shadow-xl">
               <MdOutlineGroups size={48} className="text-white" />
@@ -119,6 +134,7 @@ const Register = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

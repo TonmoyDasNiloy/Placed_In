@@ -207,8 +207,8 @@ const Home = () => {
                 </div>
 
                 {posting ? <Loading /> : (
-                  <CustomButton type="submit" title="Post"
-                    containerStyles="bg-gradient-to-r from-[#7c3aed] to-[#a855f7] text-white py-1.5 px-6 rounded-full font-semibold text-sm hover:opacity-90 transition shadow" />
+                  <CustomButton type="submit" title="Post" containerStyles="text-white py-1.5 px-6 rounded-full font-semibold text-sm hover:opacity-90 transition shadow"
+                  style={{ background: "linear-gradient(to right, #A35139, #FFB162)" }} />
                 )}
               </div>
             </form>

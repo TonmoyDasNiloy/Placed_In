@@ -34,7 +34,7 @@ const ProfileCard = ({ user, onUnfriend }) => {
   return (
     <div className="w-full glass rounded-2xl overflow-hidden">
       {/* Banner */}
-      <div className="h-16 bg-gradient-to-r from-[#7c3aed] to-[#a855f7]" />
+      <div className="h-16 bg-gradient-to-r from-[#A35139] to-[#FFB162]" />
 
       <div className="px-5 pb-5">
         {/* Avatar + Buttons */}

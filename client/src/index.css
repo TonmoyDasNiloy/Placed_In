@@ -17,18 +17,18 @@
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(238, 233, 223, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(109, 40, 217, 0.1);
+  border: 1px solid rgba(163, 81, 57, 0.15);
+  box-shadow: 0 8px 32px rgba(163, 81, 57, 0.08);
 }
 
-.glass-dark {
-  background: rgba(30, 10, 60, 0.45);
+[data-theme="dark"] .glass {
+  background: rgba(44, 59, 77, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(255, 177, 98, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
@@ -46,7 +46,7 @@
   width: 12px;
   margin-right: 10px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #FFB162;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -58,68 +58,63 @@
 @keyframes pulse {
   0% {
     transform: scale(0.8);
-    background-color: #c4b5fd;
-    box-shadow: 0 0 0 0 rgba(196, 181, 253, 0.7);
+    background-color: #FFB162;
+    box-shadow: 0 0 0 0 rgba(255, 177, 98, 0.7);
   }
   50% {
     transform: scale(1.2);
-    background-color: #7c3aed;
-    box-shadow: 0 0 0 10px rgba(196, 181, 253, 0);
+    background-color: #A35139;
+    box-shadow: 0 0 0 10px rgba(255, 177, 98, 0);
   }
   100% {
     transform: scale(0.8);
-    background-color: #6d28d9;
-    box-shadow: 0 0 0 0 rgba(196, 181, 253, 0.7);
+    background-color: #FFB162;
+    box-shadow: 0 0 0 0 rgba(255, 177, 98, 0.7);
   }
 }
 
 @layer base {
   :root {
-    --color-bg: 220 210 255;
-    --color-primary: 255 255 255;
-    --color-secondary: 245 243 255;
-    --color-ascent1: 30 27 75;
-    --color-ascent2: 109 107 140;
-    --color-blue: 109 40 217;
+    --color-bg: 238 233 223;
+    --color-primary: 245 241 234;
+    --color-secondary: 228 220 208;
+    --color-ascent1: 27 38 50;
+    --color-ascent2: 94 78 65;
+    --color-blue: 255 177 98;
     --color-white: 255 255 255;
-    --logo-gradient-from: #7c3aed;
-    --logo-gradient-to: #a855f7;
+    --logo-gradient-from: #A35139;
+    --logo-gradient-to: #FFB162;
   }
 
   [data-theme="dark"] {
-    --color-bg: 10 5 25;
-    --color-primary: 25 15 50;
-    --color-secondary: 40 28 75;
-    --color-ascent1: 237 233 254;
-    --color-ascent2: 167 163 200;
-    --color-blue: 139 92 246;
+    --color-bg: 27 38 50;
+    --color-primary: 44 59 77;
+    --color-secondary: 55 72 92;
+    --color-ascent1: 238 233 223;
+    --color-ascent2: 201 193 177;
+    --color-blue: 255 177 98;
     --color-white: 255 255 255;
-    --logo-gradient-from: #a78bfa;
-    --logo-gradient-to: #c084fc;
+    --logo-gradient-from: #FFB162;
+    --logo-gradient-to: #A35139;
   }
 }
 
-/* Animated gradient background */
 body {
   background-attachment: fixed;
 }
 
+/* Light mode — warm cream with soft amber glow */
 :root body {
-  background-image: radial-gradient(ellipse at 20% 50%, rgba(167, 139, 250, 0.3) 0%, transparent 60%),
-                    radial-gradient(ellipse at 80% 20%, rgba(109, 40, 217, 0.2) 0%, transparent 60%),
-                    radial-gradient(ellipse at 50% 80%, rgba(196, 181, 253, 0.2) 0%, transparent 60%);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 177, 98, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(163, 81, 57, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(201, 193, 177, 0.25) 0%, transparent 60%);
 }
 
+/* Dark mode — deep navy with warm ember glow */
 [data-theme="dark"] body {
-  background-image: radial-gradient(ellipse at 20% 50%, rgba(109, 40, 217, 0.25) 0%, transparent 60%),
-                    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 60%),
-                    radial-gradient(ellipse at 50% 80%, rgba(76, 29, 149, 0.2) 0%, transparent 60%);
-}
-
-.logo-text {
-  background-image: linear-gradient(to right, var(--logo-gradient-from), var(--logo-gradient-to));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(163, 81, 57, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 177, 98, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(27, 38, 50, 0.3) 0%, transparent 60%);
 }
