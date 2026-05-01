@@ -29,10 +29,10 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
-# Environment variables
-.env
-client/.env
-server/.env
+# # Environment variables
+# .env
+# client/.env
+# server/.env
 
 
 # Optional npm cache directory
@@ -42,5 +42,5 @@ server/.env
 .node_repl_history
 .DS_Store
 
-#Excluding build directory
-public/
+# #Excluding build directory
+# public/
