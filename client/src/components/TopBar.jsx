@@ -4,17 +4,38 @@ import { MdOutlineGroups } from "react-icons/md";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import TextInput from "./TextInput";
+import NotificationDropdown from "./NotificationDropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { SetTheme } from "../redux/theme";
-import { Logout } from "../redux/userSlice";
+import { Logout, SetNotifications } from "../redux/userSlice";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { apiRequest } from "../utils";
 
 const TopBar = () => {
   const navigate = useNavigate();
   const { theme } = useSelector((state) => state.theme);
+  const { user, notifications } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm({ mode: "onChange" });
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const fetchNotifications = async () => {
+    if (!user?.token) return;
+    const res = await apiRequest({
+      url: "/users/get-friend-request",
+      token: user?.token,
+      method: "POST",
+    });
+    if (res?.data) dispatch(SetNotifications(res.data));
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 30000);
+    return () => clearInterval(interval);
+  }, [user]);
 
   const handleTheme = () => {
     dispatch(SetTheme(theme === "light" ? "dark" : "light"));
@@ -68,12 +89,36 @@ const TopBar = () => {
           onClick={handleTheme}
           className="p-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/20 transition"
         >
-          {theme === "light" ? <BsMoon size={18} /> : <BsSunFill size={18} className="text-yellow-300" />}
+          {theme === "light" ? (
+            <BsMoon size={18} />
+          ) : (
+            <BsSunFill size={18} className="text-yellow-300" />
+          )}
         </button>
 
-        <button className="hidden lg:flex p-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/20 transition">
-          <IoMdNotificationsOutline size={18} />
-        </button>
+        {/* Notification Bell */}
+        <div className="relative hidden lg:flex">
+          <button
+            onClick={() => setShowNotifications((prev) => !prev)}
+            className="p-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/20 transition"
+          >
+            <IoMdNotificationsOutline size={18} />
+            {notifications?.length > 0 && (
+              <span
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
+                style={{ background: "linear-gradient(to right, #A35139, #FFB162)" }}
+              >
+                {notifications.length}
+              </span>
+            )}
+          </button>
+
+          {showNotifications && (
+            <NotificationDropdown
+              onClose={() => setShowNotifications(false)}
+            />
+          )}
+        </div>
 
         <CustomButton
           onClick={() => dispatch(Logout())}

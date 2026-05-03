@@ -6,6 +6,7 @@ import ProfileCard from "./ProfileCard";
 import FriendsCard from "./FriendsCard";
 import EditProfile from "./EditProfile";
 import Loading from "./Loading";
+import NotificationDropdown from "./NotificationDropdown";
 
 export {
   TextInput,
@@ -16,4 +17,5 @@ export {
   FriendsCard,
   EditProfile,
   Loading,
+  NotificationDropdown
 };

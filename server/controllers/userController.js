@@ -396,17 +396,34 @@ export const suggestedFriends = async (req, res) => {
   try {
     const { userId } = req.body.user;
 
-    let queryObject = {};
+    // Find all pending requests involving this user (as sender or receiver)
+    const pendingRequests = await FriendRequest.find({
+      $or: [{ requestFrom: userId }, { requestTo: userId }],
+      requestStatus: "Pending",
+    });
 
-    queryObject._id = { $ne: userId };
+    // Collect all user IDs involved in pending requests
+    const excludedIds = pendingRequests.map((req) =>
+      req.requestFrom.toString() === userId
+        ? req.requestTo
+        : req.requestFrom
+    );
 
-    queryObject.friends = { $nin: userId };
+    // Also exclude the user themselves and existing friends
+    const currentUser = await Users.findById(userId).select("friends");
+    const friendIds = currentUser.friends.map((f) => f.toString());
 
-    let queryResult = Users.find(queryObject)
+    const allExcluded = [
+      userId,
+      ...friendIds,
+      ...excludedIds.map((id) => id.toString()),
+    ];
+
+    const suggestedFriends = await Users.find({
+      _id: { $nin: allExcluded },
+    })
       .limit(15)
       .select("firstName lastName profileUrl profession -password");
-
-    const suggestedFriends = await queryResult;
 
     res.status(200).json({
       success: true,

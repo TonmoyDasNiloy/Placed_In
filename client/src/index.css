@@ -84,6 +84,7 @@
     --color-white: 255 255 255;
     --logo-gradient-from: #A35139;
     --logo-gradient-to: #FFB162;
+    --dropdown-bg: rgba(245, 241, 234, 0.97);
   }
 
   [data-theme="dark"] {
@@ -96,6 +97,7 @@
     --color-white: 255 255 255;
     --logo-gradient-from: #FFB162;
     --logo-gradient-to: #A35139;
+    --dropdown-bg: rgba(35, 48, 63, 0.97);
   }
 }
 

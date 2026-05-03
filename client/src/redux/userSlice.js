@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: JSON.parse(window?.localStorage.getItem("user")) ?? {},
+  user: JSON.parse(localStorage?.getItem("user")) ?? "",
   edit: false,
+  notifications: [],
 };
 
 const userSlice = createSlice({
@@ -19,6 +20,9 @@ const userSlice = createSlice({
     },
     updateProfile(state, action) {
       state.edit = action.payload;
+    },
+    SetNotifications(state, action) {
+      state.notifications = action.payload;
     },
   },
 });
@@ -40,6 +44,12 @@ export function Logout() {
 export function UpdateProfile(val) {
   return (dispatch, getState) => {
     dispatch(userSlice.actions.updateProfile(val));
+  };
+}
+
+export function SetNotifications(data) {
+  return (dispatch, getState) => {
+    dispatch(userSlice.actions.SetNotifications(data));
   };
 }
 
